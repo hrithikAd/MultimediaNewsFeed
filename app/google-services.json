@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "183315846331",
+    "firebase_url": "https://bong-af.firebaseio.com",
+    "project_id": "bong-af",
+    "storage_bucket": "bong-af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183315846331:android:bef69973286cd9a9",
+        "android_client_info": {
+          "package_name": "com.hrithik.android.bongaf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183315846331-f5rmkii21uavo6rkau8fujpugkpc2dbl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hrithik.android.bongaf",
+            "certificate_hash": "fd7ea0abfa3c30e57525359ebf21838b00d4a6e6"
+          }
+        },
+        {
+          "client_id": "183315846331-n2n32d04d5tmdh09lglptr0voq370bq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNcqz6ZAiDcTV60piYWGEVzOmZJn-52hA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183315846331-n2n32d04d5tmdh09lglptr0voq370bq4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
