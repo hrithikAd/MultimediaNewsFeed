@@ -61,8 +61,8 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
+        int type;
         final Product product = productList.get(position);
-        holder.textViewTitle.setText(product.getTitle());
 
         RequestOptions options = new RequestOptions()
                 .centerCrop()
@@ -76,27 +76,35 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
       //  video=product.getVideo();
       //  holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage(), null));
 
-holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
+        type=product.getType();
+
+        if(type==1) {
+
+            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
 
+                    video = product.getVideo();
 
-        video = product.getVideo();
+                    if (interstitialAd.isLoaded()) {
 
-        if(interstitialAd.isLoaded())
-        {
+                        interstitialAd.show();
+                    } else {
+                        Intent i = new Intent(mCtx.getApplicationContext(), Play.class);
+                        i.putExtra("message", video);
+                        mCtx.startActivity(i);
+                    }
+                }
+            });
 
-            interstitialAd.show();
         }
 
         else{
-            Intent i = new Intent(mCtx.getApplicationContext(),Play.class);
-            i.putExtra("message",video );
-            mCtx.startActivity(i);
+
+            //image
+
         }
-    }
-});
 
 
     }
@@ -119,7 +127,6 @@ holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.imageView);
-            textViewTitle = itemView.findViewById(R.id.textViewTitle);
             cardView = (CardView) itemView.findViewById(R.id.cardview);
             parentLayout = itemView.findViewById(R.id.cardlayout);
 

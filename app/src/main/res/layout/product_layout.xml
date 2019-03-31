@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:id="@+id/cardlayout">
+    android:id="@+id/cardlayout"
+    android:background="@color/colorPrimaryDark">
 
     <android.support.v7.widget.CardView
         android:layout_margin="5dp"
@@ -22,16 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:padding="4dp" />
-
-            <TextView
-                android:id="@+id/textViewTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_below="@id/imageView"
-                android:text="text"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000" />
 
         </RelativeLayout>
 

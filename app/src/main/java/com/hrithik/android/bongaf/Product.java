@@ -3,17 +3,16 @@ package com.hrithik.android.bongaf;
 public class Product {
 
     private String image;
-    private String title;
+    private int type;
     private String video;
-    private int views;
 
     public Product(){
 
     }
 
-    public Product(String image, String title, double rating, String video) {
+    public Product(String image, int type, String video) {
         this.image = image;
-        this.title = title;
+        this.type = type;
         this.video = video;
     }
 
@@ -21,8 +20,8 @@ public class Product {
         return image;
     }
 
-    public String getTitle() {
-        return title;
+    public int getType() {
+        return type;
     }
 
     public String getVideo() {
