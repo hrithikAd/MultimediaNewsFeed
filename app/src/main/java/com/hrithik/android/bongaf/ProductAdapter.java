@@ -60,18 +60,15 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
     }
 
     @Override
-    public void onBindViewHolder(ProductViewHolder holder, int position) {
+    public void onBindViewHolder(final ProductViewHolder holder, int position) {
         int type;
         final Product product = productList.get(position);
 
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher_round)
-                .error(R.mipmap.ic_launcher_round);
+        final RequestOptions options = new RequestOptions();
 
 
 
-        Glide.with(mCtx).load(product.getImage()).apply(options).into(holder.imageView);
+
 
       //  video=product.getVideo();
       //  holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage(), null));
@@ -79,6 +76,8 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
         type=product.getType();
 
         if(type==1) {
+
+            Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).into(holder.imageViewVideo);
 
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,7 +101,8 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
 
         else{
 
-            //image
+            //meme
+            Glide.with(mCtx).load(product.getImage()).override(1024, 1024).apply(options).into(holder.imageViewMeme);
 
         }
 
@@ -117,16 +117,20 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        ImageView imageViewVideo;
+        ImageView imageViewMeme;
         TextView textViewTitle;
         CardView cardView;
         RelativeLayout parentLayout;
+        ImageView play;
 
 
         public ProductViewHolder(View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.imageView);
+            imageViewVideo = itemView.findViewById(R.id.imageViewVideo);
+            imageViewMeme = itemView.findViewById(R.id.imageViewMeme);
+            play = itemView.findViewById(R.id.playbtn);
             cardView = (CardView) itemView.findViewById(R.id.cardview);
             parentLayout = itemView.findViewById(R.id.cardlayout);
 
