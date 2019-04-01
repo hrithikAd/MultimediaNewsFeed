@@ -2,6 +2,7 @@ package com.hrithik.android.bongaf;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -99,10 +100,33 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
 
         }
 
-        else{
+        else if(type==0){
 
             //meme
             Glide.with(mCtx).load(product.getImage()).override(1024, 1024).apply(options).into(holder.imageViewMeme);
+
+        }
+
+        else if(type==2){
+            Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).into(holder.imageViewVideo);
+
+
+            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=null;
+                    intent =new Intent(Intent.ACTION_VIEW);
+                    intent.setPackage("com.google.android.youtube");
+                    intent.setData(Uri.parse("https://www.youtube.com/channel/UC67oXKcRUlUoW_Np8N9gabA/videos"));
+                    if (intent != null) {
+                        mCtx.startActivity(intent);//null pointer check in case package name was not found
+                    }
+                    else{
+                        Toast.makeText(mCtx.getApplicationContext(), "Youtube App Not Installed", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
 
         }
 
