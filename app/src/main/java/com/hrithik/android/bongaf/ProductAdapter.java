@@ -2,6 +2,8 @@ package com.hrithik.android.bongaf;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -27,8 +29,7 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
     private InterstitialAd interstitialAd;
     String video;
     int rate;
-
-
+    ImageView play;
     public ProductsAdapter(final Context mCtx, List<Product> productList) {
         this.mCtx = mCtx;
         this.productList = productList;
@@ -105,12 +106,26 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
             //meme
             Glide.with(mCtx).load(product.getImage()).override(1024, 1024).apply(options).into(holder.imageViewMeme);
 
+
+            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                   String meme = product.getImage();
+                        Intent i = new Intent(mCtx.getApplicationContext(), Image.class);
+                        i.putExtra("meme", meme);
+                        mCtx.startActivity(i);
+
+                }
+            });
+
         }
 
         else if(type==2){
             Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).into(holder.imageViewVideo);
 
-
+play.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -146,7 +161,7 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
         TextView textViewTitle;
         CardView cardView;
         RelativeLayout parentLayout;
-        ImageView play;
+
 
 
         public ProductViewHolder(View itemView) {

@@ -1,6 +1,7 @@
 package com.hrithik.android.bongaf;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ String video_link;
         Bundle bundle = getIntent().getExtras();
         video_link = bundle.getString("message");
         playerView = findViewById(R.id.player);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
 
 
