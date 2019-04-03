@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
     private InterstitialAd interstitialAd;
     String video;
     int rate;
+
     ImageView play;
     public ProductsAdapter(final Context mCtx, List<Product> productList) {
         this.mCtx = mCtx;
@@ -98,7 +100,7 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
                     }
                 }
             });
-
+            play.setVisibility(View.VISIBLE);
         }
 
         else if(type==0){
@@ -125,7 +127,7 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
         else if(type==2){
             Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).into(holder.imageViewVideo);
 
-play.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+            play.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -143,6 +145,8 @@ play.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
                 }
             });
 
+            play.setVisibility(View.VISIBLE);
+
         }
 
 
@@ -158,7 +162,6 @@ play.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
 
         ImageView imageViewVideo;
         ImageView imageViewMeme;
-        TextView textViewTitle;
         CardView cardView;
         RelativeLayout parentLayout;
 
@@ -172,7 +175,6 @@ play.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
             play = itemView.findViewById(R.id.playbtn);
             cardView = (CardView) itemView.findViewById(R.id.cardview);
             parentLayout = itemView.findViewById(R.id.cardlayout);
-
         }
         }
 

@@ -45,7 +45,8 @@
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/play"/>
+                    android:src="@drawable/play"
+                    android:visibility="invisible"/>
 
             </FrameLayout>
 

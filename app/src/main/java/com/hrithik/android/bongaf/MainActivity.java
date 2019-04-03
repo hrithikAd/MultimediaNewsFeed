@@ -12,6 +12,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,11 +35,17 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     String teamcode,room,ann;
-String number = "8583030810";
+    String number;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView( R.layout.activity_main);
+
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
 
         //auto update
         AppUpdateChecker appUpdateChecker=new AppUpdateChecker(this);  //pass the activity in constructure
@@ -137,7 +144,18 @@ String number = "8583030810";
 
 
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("board").child("number");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                number = (String) dataSnapshot.getValue();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
 
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -196,5 +214,4 @@ String number = "8583030810";
         });
 
     }
-
 }
