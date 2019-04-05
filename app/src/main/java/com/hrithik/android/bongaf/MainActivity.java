@@ -127,13 +127,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ann = (String) dataSnapshot.getValue();
-
+                    TextView annu = findViewById(R.id.announcement);
                 if (ann.equalsIgnoreCase("null")) {
-                    ((TextView) findViewById(R.id.announcement)).setVisibility(View.GONE);
+                    annu.setVisibility(View.GONE);
                 } else {
                     ((CardView) findViewById(R.id.card2)).setVisibility(View.VISIBLE);
-                    ((TextView) findViewById(R.id.announcement)).setVisibility(View.VISIBLE);
-                    ((TextView) findViewById(R.id.announcement)).setText(ann);
+                    annu.setVisibility(View.VISIBLE);
+                    annu.setText(ann);
                 }
             }
             @Override
