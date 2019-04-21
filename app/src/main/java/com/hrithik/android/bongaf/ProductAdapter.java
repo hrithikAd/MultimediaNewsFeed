@@ -21,6 +21,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHolder> {
@@ -29,13 +34,16 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
     List<Product> productList;
     private InterstitialAd interstitialAd;
     String video;
-    int rate;
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    TextView vviews;
     ImageView play;
+
+
     public ProductsAdapter(final Context mCtx, List<Product> productList) {
         this.mCtx = mCtx;
         this.productList = productList;
-
 
 
         interstitialAd = new InterstitialAd(mCtx);
@@ -63,35 +71,54 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
 
     }
 
+
+
+
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, int position) {
         int type;
+        final String title;
         final Product product = productList.get(position);
-
+        final int views;
         final RequestOptions options = new RequestOptions();
-
-
-
-
-
-      //  video=product.getVideo();
-      //  holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage(), null));
-
         type=product.getType();
+        title=product.getTitle();
+        views=product.getViews();
+        vviews.setText(Integer.toString(views));
 
-        if(type==1) {
 
-            Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).into(holder.imageViewVideo);
-
+        if(type==0){
+            //meme
+            Glide.with(mCtx).load(product.getImage()).override(1024, 1024).apply(options).into(holder.imageViewMeme);
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // Write a message to the database
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("products").child(title).child("views");
+                    myRef.setValue(views+1);
+                    String meme = product.getImage();
+                    Intent i = new Intent(mCtx.getApplicationContext(), Image.class);
+                    i.putExtra("meme", meme);
+                    mCtx.startActivity(i);
+                }
+            });
+
+        }
 
 
+         else if(type==1) {
+
+            Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).into(holder.imageViewVideo);
+            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Write a message to the database
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("products").child(title).child("views");
+                    myRef.setValue(views+1);
                     video = product.getVideo();
-
                     if (interstitialAd.isLoaded()) {
-
                         interstitialAd.show();
                     } else {
                         Intent i = new Intent(mCtx.getApplicationContext(), Play.class);
@@ -102,39 +129,27 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
             });
             play.setVisibility(View.VISIBLE);
         }
-
-        else if(type==0){
-
-            //meme
-            Glide.with(mCtx).load(product.getImage()).override(1024, 1024).apply(options).into(holder.imageViewMeme);
-
-
-            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-                   String meme = product.getImage();
-                        Intent i = new Intent(mCtx.getApplicationContext(), Image.class);
-                        i.putExtra("meme", meme);
-                        mCtx.startActivity(i);
-
-                }
-            });
-
-        }
-
         else if(type==2){
             Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).into(holder.imageViewVideo);
-
+            video = product.getVideo();
             play.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+
+                    // Write a message to the database
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("products").child(title).child("views");
+
+                    myRef.setValue(views+1);
+
+
+
                     Intent intent=null;
                     intent =new Intent(Intent.ACTION_VIEW);
                     intent.setPackage("com.google.android.youtube");
-                    intent.setData(Uri.parse("https://www.youtube.com/channel/UC67oXKcRUlUoW_Np8N9gabA/videos"));
+                    intent.setData(Uri.parse(video.toString()));
                     if (intent != null) {
                         mCtx.startActivity(intent);//null pointer check in case package name was not found
                     }
@@ -175,6 +190,7 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
             play = itemView.findViewById(R.id.playbtn);
             cardView = (CardView) itemView.findViewById(R.id.cardview);
             parentLayout = itemView.findViewById(R.id.cardlayout);
+            vviews = itemView.findViewById(R.id.views);
         }
         }
 
