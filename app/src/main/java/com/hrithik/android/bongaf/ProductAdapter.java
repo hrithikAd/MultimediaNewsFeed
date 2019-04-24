@@ -89,7 +89,8 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
 
         if(type==0){
             //meme
-            Glide.with(mCtx).load(product.getImage()).override(1024, 1024).apply(options).into(holder.imageViewMeme);
+
+            Glide.with(mCtx).load(product.getImage()).override(1024, 1024).apply(options).placeholder(R.drawable.loading_image).into(holder.imageViewMeme);
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -109,7 +110,7 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
 
          else if(type==1) {
 
-            Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).into(holder.imageViewVideo);
+            Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).placeholder(R.drawable.loading_image).into(holder.imageViewVideo);
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -130,7 +131,7 @@ class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHo
             play.setVisibility(View.VISIBLE);
         }
         else if(type==2){
-            Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).into(holder.imageViewVideo);
+            Glide.with(mCtx).load(product.getImage()).override(1280, 720).apply(options).placeholder(R.drawable.loading_image).into(holder.imageViewVideo);
             video = product.getVideo();
             play.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
