@@ -16,7 +16,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 
-class Play extends Activity {
+public class Play extends Activity {
  private PlayerView playerView;
 private SimpleExoPlayer player;
 String video_link;
@@ -29,7 +29,7 @@ String video_link;
         Bundle bundle = getIntent().getExtras();
         video_link = bundle.getString("message");
         playerView = findViewById(R.id.player);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+      //  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
 
 
